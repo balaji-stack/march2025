@@ -1,5 +1,5 @@
 FROM nginx:latest
-COPY devops.html /usr/share/nginx/html/devops.html
+COPY index.html /usr/share/nginx/html/
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
