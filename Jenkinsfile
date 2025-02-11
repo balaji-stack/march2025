@@ -19,7 +19,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8080:80 --name my-nginx-container my-nginx-app'
+                    sh 'docker run -d -p 8083:80 --name my-nginx-container my-nginx-app'
                 }
             }
         }
