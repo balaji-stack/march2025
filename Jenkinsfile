@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "your-dockerhub-username/app"
+        IMAGE_NAME = "balaji004/app"  // Change to your actual Docker Hub username
         REGISTRY_CREDENTIALS = "docker-hub-credentials"
     }
 
