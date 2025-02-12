@@ -10,7 +10,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
-                    sh git branch: 'main', url: 'https://github.com/balaji-stack/march2025.git'
+                    sh 'git clone -b main https://$GITHUB_TOKEN@github.com/balaji-stack/march2025.git'
                 }
             }
         }
@@ -35,4 +35,5 @@ pipeline {
         }
     }
 }
+
 
