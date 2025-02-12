@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "balaji004/app"  // Change to your actual Docker Hub username
+        IMAGE_NAME = "balaji004/app"  // Your Docker Hub username
         REGISTRY_CREDENTIALS = "docker-hub-credentials"
     }
 
@@ -22,8 +22,11 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${IMAGE_NAME}:latest")
+                sh 'docker --version' // Verify Docker is installed
+                dir('march2025') {  // Navigate into repo directory
+                    script {
+                        docker.build("${IMAGE_NAME}:latest")
+                    }
                 }
             }
         }
@@ -36,6 +39,17 @@ pipeline {
                 script {
                     docker.image("${IMAGE_NAME}:latest").push()
                 }
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                sh '''
+                    docker stop my-app || true
+                    docker rm my-app || true
+                    docker pull balaji004/app:latest
+                    docker run -d --name my-app -p 80:80 balaji004/app:latest
+                '''
             }
         }
     }
